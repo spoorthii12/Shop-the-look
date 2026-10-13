@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop-the-Look: Grounding DINO Detection & Catalog Matching</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 28px; line-height: 1.5; }
+        h1 { font-size: 26px; margin-bottom: 6px; color: #38bdf8; }
+        h2 { font-size: 20px; margin-top: 36px; margin-bottom: 16px; border-bottom: 1px solid #334155; padding-bottom: 8px; color: #f1f5f9; }
+        p.subtitle { color: #94a3b8; font-size: 14px; margin-top: 0; }
+        .flow-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+        .flow-card h3 { margin-top: 0; color: #f8fafc; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+        .pipeline-row { display: grid; grid-template-columns: 280px auto 200px auto 280px; align-items: center; gap: 16px; }
+        .cell { text-align: center; }
+        .cell img { max-width: 100%; max-height: 280px; border-radius: 8px; border: 1px solid #475569; background: #000; }
+        .arrow { font-size: 24px; color: #38bdf8; font-weight: bold; text-align: center; }
+        .badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge-scene { background: #6366f1; color: white; }
+        .badge-dino { background: #ec4899; color: white; }
+        .badge-catalog { background: #10b981; color: white; }
+        .crop-grid { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .crop-item { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 8px; text-align: center; }
+        .crop-item img { max-height: 120px; max-width: 120px; object-fit: contain; }
+        .crop-label { font-size: 11px; color: #38bdf8; margin-top: 4px; font-weight: 500; }
+        .code-meta { font-family: monospace; font-size: 11px; color: #94a3b8; margin-top: 6px; }
+    </style>
+</head>
+<body>
+    <h1>Shop-the-Look: Grounding DINO Detection & Matching</h1>
+    <p class="subtitle">Real-time object detection isolating garments from complex scene queries, matching against catalog inventory.</p>
+
+    <h2>Live Grounding DINO Garment Isolations</h2>
+
+    <!-- Flow 1: Sneaker Scene -->
+    <div class="flow-card">
+        <h3><span>Look #1: Street Scene &rarr; White Sneaker Match</span></h3>
+        <div class="pipeline-row">
+            <!-- Scene -->
+            <div class="cell">
+                <span class="badge badge-scene">1. Input Scene Query</span>
+                <br>
+                <img src="data/scenes/cdab9160072dd1800038227960ff6467.jpg" alt="Scene 1">
+                <div class="code-meta">cdab9160072dd18...</div>
+            </div>
+
+            <div class="arrow">&rarr;<br><span style="font-size:12px;color:#94a3b8;">DINO Detect</span></div>
+
+            <!-- Detected Crops -->
+            <div class="cell">
+                <span class="badge badge-dino">2. Grounding DINO Crops</span>
+                <div class="crop-grid">
+                    <div class="crop-item">
+                        <img src="data/crops/cdab9160072dd1800038227960ff6467_shoes_sneakers_0.jpg" alt="Shoe Crop">
+                        <div class="crop-label">shoes / sneakers (0.53)</div>
+                    </div>
+                    <div class="crop-item">
+                        <img src="data/crops/cdab9160072dd1800038227960ff6467_skirt_shorts_2.jpg" alt="Skirt Crop">
+                        <div class="crop-label">skirt / shorts (0.45)</div>
+                    </div>
+                </div>
+                <div class="code-meta" style="color:#10b981;font-weight:bold;margin-top:8px;">&star; Sneaker isolated!</div>
+            </div>
+
+            <div class="arrow">&rarr;<br><span style="font-size:12px;color:#94a3b8;">Retrieval</span></div>
+
+            <!-- Catalog Match -->
+            <div class="cell">
+                <span class="badge badge-catalog">3. Target Catalog Match</span>
+                <br>
+                <img src="data/products/0027e30879ce3d87f82f699f148bff7e.jpg" alt="Catalog Target 1">
+                <div class="code-meta">0027e30879ce3... (White Keds)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flow 2: Blouse Scene -->
+    <div class="flow-card">
+        <h3><span>Look #2: Summer Scene &rarr; White Blouse Match</span></h3>
+        <div class="pipeline-row">
+            <!-- Scene -->
+            <div class="cell">
+                <span class="badge badge-scene">1. Input Scene Query</span>
+                <br>
+                <img src="data/scenes/f86017bc2e570936f6850e92267e15f3.jpg" alt="Scene 2">
+                <div class="code-meta">f86017bc2e5709...</div>
+            </div>
+
+            <div class="arrow">&rarr;<br><span style="font-size:12px;color:#94a3b8;">DINO Detect</span></div>
+
+            <!-- Detected Crops -->
+            <div class="cell">
+                <span class="badge badge-dino">2. Grounding DINO Crops</span>
+                <div class="crop-grid">
+                    <div class="crop-item">
+                        <img src="data/crops/f86017bc2e570936f6850e92267e15f3_shirt_1.jpg" alt="Shirt Crop">
+                        <div class="crop-label">shirt / blouse (0.41)</div>
+                    </div>
+                    <div class="crop-item">
+                        <img src="data/crops/f86017bc2e570936f6850e92267e15f3_skirt_shorts_0.jpg" alt="Shorts Crop">
+                        <div class="crop-label">skirt / shorts (0.48)</div>
+                    </div>
+                </div>
+                <div class="code-meta" style="color:#10b981;font-weight:bold;margin-top:8px;">&star; Blouse isolated!</div>
+            </div>
+
+            <div class="arrow">&rarr;<br><span style="font-size:12px;color:#94a3b8;">Retrieval</span></div>
+
+            <!-- Catalog Match -->
+            <div class="cell">
+                <span class="badge badge-catalog">3. Target Catalog Match</span>
+                <br>
+                <img src="data/products/588a44c6c2f5c79352fa01e84bec0a52.jpg" alt="Catalog Target 2">
+                <div class="code-meta">588a44c6c2f5c... (White Top)</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
